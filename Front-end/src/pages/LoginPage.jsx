@@ -5,8 +5,11 @@ import register from '../img/register.svg';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Base_URL } from '../config';
+import { useToast } from '@chakra-ui/react'
 
 export function LoginPage() {
+  const toast = useToast()
+
   const [signUpMode, setSignUpMode] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -23,32 +26,101 @@ export function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { name, email, password } = formData;
+
+    if (name === '' || email === '' || password === '') {
+      toast({
+        title: 'Oops!! ☹',
+        description: "Please fill in all the details.",
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+      return; // Exit the function early
+    }
 
     try {
       const response = await axios.post(`${Base_URL}/user/register`, formData);
       console.log(response.data);
-      alert("You are registered successfully");
+
+      
+      toast({
+        title: 'Success!',
+        description: "You are registered successfully.",
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+      
+      setSignUpMode(false);
+
     } catch (error) {
-      console.error("Registration failed:", error);
+      if (error.response && error.response.status === 401) {
+        toast({
+          title: 'Already Registered!',
+          description: "You are already registered! Please log in.",
+          status: 'info',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        console.error("Registration failed:", error);
+        toast({
+          title: 'Registration failed',
+          description: "Something went wrong. Please try again.",
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
     }
   };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    const { name, email} = loginData;
+
+    if (name === '' || email === '' ) {
+      toast({
+        title: 'Oops!! ☹',
+        description: "Please fill in all the details.",
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
+      return; // Exit the function early
+    }
+
 
     try {
       const response = await axios.post(`${Base_URL}/user/login`, loginData);
       console.log(response.data.accessToken);
       console.log(response.data);
       localStorage.setItem('token', response.data.accessToken);
+
+      toast({
+        title: 'Success!',
+        description: "You are logged in successfully.",
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+
+
       setTimeout(()=>{
         navigate("/chartSection");
 
       },2000)
-      alert("You are logged in successfully");
 
     } catch (error) {
       console.error("Login failed:", error);
+      toast({
+        title: 'Login failed',
+        description: "Invalid email or password. Please try again or register first.",
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      });
     }
   };
 
@@ -174,8 +246,7 @@ export function LoginPage() {
           <div className="content">
             <h3>New here ?</h3>
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
+            We are excited to have you! Register now to enjoy member-only benefits, get the latest updates, and connect with others.
             </p>
             <button className="btn transparent" type="button" onClick={handleSignUpClick}>
               Sign up
@@ -187,8 +258,7 @@ export function LoginPage() {
           <div className="content">
             <h3>One of us ?</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
+            Welcome back! Enter your credentials to get back to your dashboard and enjoy your benefits.
             </p>
             <button className="btn transparent" onClick={handleSignInClick}>
               Sign in
