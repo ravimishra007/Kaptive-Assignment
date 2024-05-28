@@ -1,17 +1,16 @@
 import { Route, Routes } from 'react-router-dom'
 import { LoginPage } from '../pages/LoginPage'
-// import { Dashboard } from '../pages/Dashboard'
-import {Chart0} from '../components/dashboard/Chart0'
-import { Table } from '../components/dashboard/Table'
-import { Reports } from '../components/dashboard/Reports'
-import { ForeCast } from '../components/dashboard/ForeCast'
+import { Table } from '../pages/dashboard/Table'
+import { Reports } from '../pages/dashboard/Reports'
+import { ForeCast } from '../pages/dashboard/ForeCast'
+import { ChartSection } from '../pages/dashboard/ChartPage'
 
 const AllRoutes = () => {
     
   return (
     <Routes>
 <Route path='/' element={<LoginPage/>}/>
-<Route path='/chart0' element={<Chart0/>}/>
+<Route path='/chartSection' element={<ChartSection/>}/>
 <Route path='/table' element={<Table/>}/>
 <Route path='/reports' element={<Reports/>}/>
 <Route path='/forecast' element={<ForeCast/>}/>

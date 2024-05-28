@@ -55,7 +55,7 @@ const getUsers = async (req, res) => {
   const login = async (req, res) => {
     const { email, password } = req.body;
     try {
-      const user = await userModel.findOne({ email });
+      const user = await userModel.findOne({ email:email });
       if (!user) {
         console.log("User not found! Please register first.");
         return res

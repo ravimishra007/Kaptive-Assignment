@@ -4,16 +4,19 @@ import log from '../img/log.svg';
 import register from '../img/register.svg';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/actionTypes';
+import { Base_URL } from '../config';
 
 export function LoginPage() {
   const [signUpMode, setSignUpMode] = useState(false);
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
+  });
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: ""
   });
 
   const navigate = useNavigate();
@@ -22,7 +25,7 @@ export function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/user/register', formData);
+      const response = await axios.post(`${Base_URL}/user/register`, formData);
       console.log(response.data);
       alert("You are registered successfully");
     } catch (error) {
@@ -30,9 +33,33 @@ export function LoginPage() {
     }
   };
 
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`${Base_URL}/user/login`, loginData);
+      console.log(response.data.accessToken);
+      console.log(response.data);
+      localStorage.setItem('token', response.data.accessToken);
+      setTimeout(()=>{
+        navigate("/chartSection");
+
+      },2000)
+      alert("You are logged in successfully");
+
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleLoginChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData({ ...loginData, [name]: value });
   };
 
   const handleSignUpClick = () => {
@@ -47,14 +74,16 @@ export function LoginPage() {
     <div className={`container ${signUpMode ? 'sign-up-mode' : ''}`}>
       <div className="forms-container">
         <div className="signin-signup">
-          <form className="sign-in-form">
+          <form onSubmit={handleLoginSubmit} className="sign-in-form">
             <h2 className="title">Sign in</h2>
             <div className="input-field">
               <i className="fas fa-user"></i>
               <input
                 type="text"
-                placeholder="Username"
-                name="username" 
+                placeholder="email"
+                name="email"
+                value={loginData.email}
+                onChange={handleLoginChange}
               />
             </div>
             <div className="input-field">
@@ -62,18 +91,15 @@ export function LoginPage() {
               <input
                 type="password"
                 placeholder="Password"
-                name="password" 
+                name="password"
+                value={loginData.password}
+                onChange={handleLoginChange}
               />
             </div>
             <input
               type="submit"
               value="Login"
               className="btn solid"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/chart0');
-                dispatch({ type: loginSuccess });
-              }}
             />
             <p className="social-text">Or Sign in with social platforms</p>
             <div className="social-media">
@@ -98,8 +124,8 @@ export function LoginPage() {
               <input
                 type="text"
                 placeholder="Username"
-                name="username"
-                value={formData.username}
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
               />
             </div>
