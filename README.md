@@ -132,31 +132,50 @@ npm run server
 
 The Assignment lands on the Login page. On the Login page, the following functions can be performed:
 
-1. Login Page :
 
-![Login page](./FrontEnd/src/img/keptive_signin.png)
+1. Signup Page:
 
-2. Signup Page:
+    <img src="./Front-end/src/img/Keptive_signup.png">
 
-![Signup page](./FrontEnd/src/img/keptive_signup.png)
+    <br>
+    <br>
 
-2. Logout:
+2. Login Page :
+    <img src="./Front-end/src/img/keptive_signin.png">
+    <br>
+    <br>
 
-![logout page](./FrontEnd/src/img/keptive_logout.png)
 
+3. Logout:
+
+    <img src="./Front-end/src/img/keptive_logout.png">     <br>
 
 Once logged in, you will be either redirected to the Dashboard page.
-
-3. ChartPage: where all the graphs are displayed.
-
-![chartPage](./FrontEnd/src/img/keptive_chart.png)
+    <br>
+    <br>
 
 
-4. Table page: where all the graphs are displayed related to the table
-![Table page](./FrontEnd/src/img/keptive_table.png)
+4. ChartPage: where all the graphs are displayed.
+       <br>
 
-4. Reports: where all the graphs are displayed related to the table
-![Report page](./FrontEnd/src/img/keptive_report.png)
+
+    <img src="./Front-end/src/img/keptive_chart.png">
+
+    <br>
+    <br>
+
+6. Table page: where all the graphs are displayed related to the table     <br>
+
+    <img src="./Front-end/src/img/keptive_table.png">
+        <br>
+    <br>
+
+
+7. Reports: where all the graphs are displayed related to the table     <br>
+
+    <img src="./Front-end/src/img/keptive_report.png">     <br>
+    <br>
+
 
 
 ## API Endpoints
