@@ -24,6 +24,7 @@ Backend: https://kaptive-backend-a5en.onrender.com/
   - React.js
   - ChakraUI
   - Redux
+  - Rechart.js
   
 - *Other Tools*:
   - JSON Web Tokens (JWT) for authentication
