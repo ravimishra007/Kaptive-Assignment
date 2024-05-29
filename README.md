@@ -96,12 +96,6 @@ Kaptive-Assignment
 
 ```
 
-## Video Walkthrough of the project
-
-A detailed walkthrough of all the features of our project can be found here:
-
-https:
-
 ## Installation & Getting started
 
 To run the frontend website, enter the following commands in your terminal:
